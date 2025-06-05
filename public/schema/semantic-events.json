@@ -1,0 +1,1981 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/semantic_events.schema.json",
+  "title": "Semantic Event",
+  "description": "Extended segment.com semantic event schema tailored for the Context Suite.",
+  "type": "object",
+  "definitions": {
+    "campaign": {
+      "type": "object",
+      "description": "Campaign information as defined by Segment and Google Analytics. Usually derived from parameters in the page url",
+      "properties": {
+        "campaign": {
+          "type": "string",
+          "description": "The campaign",
+          "examples": [
+            "summer"
+          ]
+        },
+        "source": {
+          "type": "string",
+          "description": "The source",
+          "examples": [
+            "google"
+          ]
+        },
+        "medium": {
+          "type": "string",
+          "description": "The medium",
+          "examples": [
+            "cpc"
+          ]
+        },
+        "term": {
+          "type": "string",
+          "description": "The term",
+          "examples": [
+            "beach"
+          ]
+        },
+        "content": {
+          "type": "string",
+          "description": "The content",
+          "examples": [
+            "ad1"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "campaign",
+        "source",
+        "medium"
+      ]
+    },
+    "app": {
+      "type": "object",
+      "description": "Properties related to the mobile application. Set by the client sending the event.",
+      "properties": {
+        "build": {
+          "type": "string",
+          "description": "The build of the app",
+          "examples": [
+            "1.1.0"
+          ]
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the app.",
+          "examples": [
+            "Segment"
+          ]
+        },
+        "namespace": {
+          "type": "string",
+          "description": "The namespace of the app",
+          "examples": [
+            "com.segment.analytics"
+          ]
+        },
+        "version": {
+          "type": "string",
+          "description": "The version of the app",
+          "examples": [
+            "1.1.0"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "version"
+      ]
+    },
+    "device": {
+      "type": "object",
+      "description": "Phone device properties. Set by the client sending the event.",
+      "properties": {
+        "ad_tracking_enabled": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "description": "Whether ad tracking is enabled."
+        },
+        "id": {
+          "type": "string",
+          "description": "The manufacturer id for the device.",
+          "examples": [
+            "1234567890abcdef"
+          ]
+        },
+        "version": {
+          "type": "string",
+          "description": "The device version.",
+          "examples": [
+            "14.4"
+          ]
+        },
+        "mac_address": {
+          "type": "string",
+          "description": "The device mac address.",
+          "examples": [
+            "00:1A:2B:3C:4D:5E"
+          ]
+        },
+        "manufacturer": {
+          "type": "string",
+          "description": "The manufacturer of the device.",
+          "examples": [
+            "Apple"
+          ]
+        },
+        "model": {
+          "type": "string",
+          "description": "The model of the device.",
+          "examples": [
+            "iPhone 12"
+          ]
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the device.",
+          "examples": [
+            "John's iPhone"
+          ]
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the device",
+          "examples": [
+            "ios"
+          ]
+        },
+        "token": {
+          "type": "string",
+          "description": "The token of the device.",
+          "examples": [
+            "abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890"
+          ]
+        },
+        "locale": {
+          "type": "string",
+          "description": "The locale of the device.",
+          "examples": [
+            "en-US"
+          ]
+        },
+        "timezone": {
+          "type": "string",
+          "description": "The timezone of the device.",
+          "examples": [
+            "America/New_York"
+          ]
+        },
+        "advertising_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The advertising ID of the device.",
+          "examples": [
+            "12345678-1234-1234-1234-1234567890ab"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "os": {
+      "type": "object",
+      "description": "Operating system properties.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The OS of the device.",
+          "examples": [
+            "iOS"
+          ]
+        },
+        "version": {
+          "type": "string",
+          "description": "The OS version of the device.",
+          "examples": [
+            "14.4"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "version"
+      ]
+    },
+    "library": {
+      "type": "object",
+      "description": "Event library properties.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the library.",
+          "examples": [
+            "analytics.js"
+          ]
+        },
+        "version": {
+          "type": "string",
+          "description": "The version of the library.",
+          "examples": [
+            "1.0.0"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "version"
+      ]
+    },
+    "user_agent": {
+      "type": "object",
+      "description": "Browser user agent properties.",
+      "properties": {
+        "signature": {
+          "type": "string",
+          "description": "The user agent."
+        },
+        "mobile": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "description": "Whether the user agent is mobile."
+        },
+        "platform": {
+          "type": "string",
+          "description": "The platform of the user agent.",
+          "examples": [
+            "iOS",
+            "Android",
+            "Windows",
+            "macOS"
+          ]
+        },
+        "data": {
+          "type": "array",
+          "description": "Details about the user agent.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "brand": {
+                "type": "string",
+                "description": "The brand of the user agent."
+              },
+              "version": {
+                "type": "string",
+                "description": "The version of the user agent."
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "brand",
+              "version"
+            ]
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "signature",
+        "platform"
+      ]
+    },
+    "network": {
+      "type": "object",
+      "description": "Mobile network properties.",
+      "properties": {
+        "carrier": {
+          "type": "string",
+          "description": "The network carrier.",
+          "examples": [
+            "Verizon",
+            "AT&T"
+          ]
+        },
+        "cellular": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "description": "Whether the network is cellular."
+        },
+        "bluetooth": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "description": "Whether the network is bluetooth."
+        },
+        "wifi": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "description": "Whether the network is wifi."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "carrier"
+      ]
+    },
+    "traits": {
+      "type": "object",
+      "description": "Trait Properties stored separately for GDPR reasons.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The ID of the user"
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the user"
+        },
+        "first_name": {
+          "type": "string",
+          "description": "The first name of the user"
+        },
+        "last_name": {
+          "type": "string",
+          "description": "The last name of the user"
+        },
+        "social_security_nr": {
+          "type": "string",
+          "description": "The social security number of the user"
+        },
+        "social_security_nr_family": {
+          "type": "string",
+          "description": "The family social security number"
+        },
+        "email": {
+          "type": "string",
+          "description": "The email of the user"
+        },
+        "phone": {
+          "type": "string",
+          "description": "The phone number of the user"
+        },
+        "avatar": {
+          "type": "string",
+          "description": "The avatar of the user"
+        },
+        "username": {
+          "type": "string",
+          "description": "The username of the user"
+        },
+        "website": {
+          "type": "string",
+          "description": "The website of the user"
+        },
+        "age": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "The age of the user"
+        },
+        "birthday": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date",
+          "description": "The birthday of the user"
+        },
+        "created_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date",
+          "description": "The date the user was created"
+        },
+        "company": {
+          "type": "string",
+          "description": "The company of the user"
+        },
+        "title": {
+          "type": "string",
+          "description": "The title of the user"
+        },
+        "gender": {
+          "type": "string",
+          "description": "The gender of the user"
+        },
+        "pronouns": {
+          "type": "string",
+          "description": "The pronouns of the user"
+        },
+        "salutation": {
+          "type": "string",
+          "description": "The salutation of the user"
+        },
+        "description": {
+          "type": "string",
+          "description": "A general description of the user"
+        },
+        "industry": {
+          "type": "string",
+          "description": "The industry of the user"
+        },
+        "employees": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "The number of employees of the user"
+        },
+        "plan": {
+          "type": "string",
+          "description": "The plan of the user"
+        },
+        "total_billed": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "The total billed of the user"
+        },
+        "logins": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "The number of logins of the user"
+        },
+        "address": {
+          "type": "object",
+          "description": "All traits that are not defined explicitly (address object)",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "page": {
+      "type": "object",
+      "description": "Page properties. url set by the client when calling the page() method.",
+      "properties": {
+        "encoding": {
+          "type": "string",
+          "description": "The encoding of the page."
+        },
+        "host": {
+          "type": "string",
+          "description": "The host of the page."
+        },
+        "path": {
+          "type": "string",
+          "description": "The path of the page."
+        },
+        "referrer": {
+          "type": "string",
+          "description": "The referrer of the page."
+        },
+        "referring_domain": {
+          "type": "string",
+          "description": "The referring domain of the page."
+        },
+        "search": {
+          "type": "string",
+          "description": "The search of the page."
+        },
+        "title": {
+          "type": "string",
+          "description": "The title of the page."
+        },
+        "url": {
+          "type": "string",
+          "description": "The url of the page."
+        }
+      },
+      "additionalProperties": false
+    },
+    "referrer": {
+      "type": "object",
+      "description": "Referrer properties (previous page). Set by the client when calling the page() method.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The referrer ID."
+        },
+        "type": {
+          "type": "string",
+          "description": "The referrer type."
+        }
+      },
+      "additionalProperties": false
+    },
+    "screen": {
+      "type": "object",
+      "description": "Device screen properties. Set by the client sending the event.",
+      "properties": {
+        "density": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "The density of the screen."
+        },
+        "height": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "The height of the screen."
+        },
+        "width": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "The width of the screen."
+        },
+        "inner_height": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "The inner height of the screen."
+        },
+        "inner_width": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "The inner width of the screen."
+        }
+      },
+      "additionalProperties": false
+    },
+    "context": {
+      "type": "object",
+      "description": "Root level event message context properties.",
+      "properties": {
+        "active": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "description": "Whether the library is active."
+        },
+        "ip": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The IP of the user (IPv4)."
+        },
+        "ipv6": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The IP of the user (IPv6)."
+        },
+        "locale": {
+          "type": "string",
+          "description": "The locale where the event happened."
+        },
+        "group_id": {
+          "type": "string",
+          "description": "The group ID associated with the event."
+        },
+        "timezone": {
+          "type": "string",
+          "description": "The timezone the event happened in."
+        },
+        "location": {
+          "type": "array",
+          "description": "Location as Point (latitude, longitude).",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "extras": {
+          "type": "string",
+          "description": "Other properties of the event context."
+        }
+      },
+      "additionalProperties": false
+    },
+    "commerce": {
+      "type": "object",
+      "description": "Extended commerce properties and totals.",
+      "properties": {
+        "details": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Other properties of the commerce event."
+        },
+        "checkout_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Unique ID for the checkout."
+        },
+        "order_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Unique ID for the order."
+        },
+        "cart_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Unique ID for the cart."
+        },
+        "employee_id": {
+          "type": "string",
+          "description": "Employee ID working the register."
+        },
+        "external_order_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "External order ID."
+        },
+        "terminal_id": {
+          "type": "string",
+          "description": "Terminal ID for the transaction."
+        },
+        "affiliation_id": {
+          "type": "string",
+          "description": "Affiliation ID."
+        },
+        "affiliation": {
+          "type": "string",
+          "description": "Store or affiliation of the transaction."
+        },
+        "agent": {
+          "type": "string",
+          "description": "Agent responsible for the sale."
+        },
+        "agent_id": {
+          "type": "string",
+          "description": "Agent ID."
+        },
+        "sold_location": {
+          "type": "string",
+          "description": "Location where sale occurred."
+        },
+        "sold_location_id": {
+          "type": "string",
+          "description": "ID of location where sale occurred."
+        },
+        "business_day": {
+          "type": "string",
+          "format": "date",
+          "description": "Business day of transaction."
+        },
+        "revenue": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "Total gross revenue."
+        },
+        "tax": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "Total tax amount."
+        },
+        "discount": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "Total discount amount."
+        },
+        "cogs": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "Total cost of goods sold."
+        },
+        "commission": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "Total commission amount."
+        },
+        "currency": {
+          "type": "string",
+          "description": "Currency code for transaction."
+        },
+        "exchange_rate": {
+          "type": "number",
+          "description": "Currency exchange rate."
+        },
+        "coupon": {
+          "type": "string",
+          "description": "Transaction coupon."
+        },
+        "payment_type": {
+          "type": "string",
+          "description": "Type of payment (ex. Card, Paypal, etc.)"
+        },
+        "payment_sub_type": {
+          "type": "string",
+          "description": "Subtype of payment (ex. Visa, Mastercard, etc.)"
+        },
+        "payment_details": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Details of payment."
+        }
+      },
+      "additionalProperties": false
+    },
+    "involves": {
+      "type": "array",
+      "description": "Entities involved in the event. Involvement can be implicit or explicit.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The label of the entity that is involved in the event."
+          },
+          "role": {
+            "type": "string",
+            "description": "The role of the entity in the event. (e.g. Supplier, Buyer, Victim, HomeTeam)"
+          },
+          "entity_type": {
+            "type": "string",
+            "description": "The type of the entity that is involved (e.g. Person, Organization, LegalEntity)."
+          },
+          "entity_gid": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid",
+            "description": "The Graph UUID of the entity."
+          },
+          "id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The ID of the entity."
+          },
+          "id_type": {
+            "type": "string",
+            "description": "Indicates what organization issued the ID."
+          },
+          "capacity": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "If the involvement is fractional, this is the fraction of the entity involved (e.g. 0.5 for half)."
+          }
+        },
+        "required": [
+          "role",
+          "entity_type",
+          "id_type"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "sentiment": {
+      "type": "array",
+      "description": "Tracks entity sentiment expressed in the event.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Type of sentiment (e.g. Praise, Criticism, Complaint, etc.)."
+          },
+          "sentiment": {
+            "type": "string",
+            "description": "The sentiment expressed."
+          },
+          "entity_type": {
+            "type": "string",
+            "description": "Type of the entity the sentiment is about."
+          },
+          "entity_gid": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid",
+            "description": "The entity that the sentiment is expressed about."
+          },
+          "id_type": {
+            "type": "string",
+            "description": "ID type of the entity."
+          },
+          "id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "ID of the entity the sentiment is expressed about."
+          },
+          "target_category": {
+            "type": "string",
+            "description": "Type of the entity involved."
+          },
+          "target_type": {
+            "type": "string",
+            "description": "Target type of the sentiment."
+          },
+          "target_entity": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Target of the sentiment."
+          },
+          "reason": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Reasoning behind the sentiment."
+          }
+        },
+        "required": [
+          "type",
+          "sentiment",
+          "entity_type"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "classification": {
+      "type": "array",
+      "description": "Tracks the classification of the event (intent, category, segmentation, etc).",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Type of classification (e.g. Intent, Category, Tag, Segmentation, etc.)."
+          },
+          "value": {
+            "type": "string",
+            "description": "The category, tag, intent, etc. being classified."
+          },
+          "reasoning": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Reasoning for the classification."
+          },
+          "score": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Score of the classification."
+          },
+          "confidence": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Confidence of the classification from the model."
+          },
+          "weight": {
+            "type": "number",
+            "description": "Relevance of the classification."
+          }
+        },
+        "required": [
+          "type",
+          "value"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "location": {
+      "type": "array",
+      "description": "Location information associated with the event.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "location_of": {
+            "type": "string",
+            "description": "Type of location (e.g. Customer, Supplier, Business Address, etc.)."
+          },
+          "label": {
+            "type": "string",
+            "description": "Label of the location."
+          },
+          "country": {
+            "type": "string",
+            "description": "Name of the country."
+          },
+          "country_code": {
+            "type": "string",
+            "description": "Country code (e.g. IS)."
+          },
+          "code": {
+            "type": "string",
+            "description": "Code of the location (e.g. postal code)."
+          },
+          "region": {
+            "type": "string",
+            "description": "Region of the location."
+          },
+          "division": {
+            "type": "string",
+            "description": "Division of the location."
+          },
+          "municipality": {
+            "type": "string",
+            "description": "Municipality."
+          },
+          "locality": {
+            "type": "string",
+            "description": "Locality."
+          },
+          "postal_code": {
+            "type": "string",
+            "description": "Postal code."
+          },
+          "postal_name": {
+            "type": "string",
+            "description": "Name of the postal code."
+          },
+          "street": {
+            "type": "string",
+            "description": "Street of the location."
+          },
+          "street_nr": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Street number."
+          },
+          "address": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Full address."
+          },
+          "longitude": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Longitude."
+          },
+          "latitude": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Latitude."
+          },
+          "geohash": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Geohash of the location."
+          },
+          "duration_from": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time",
+            "description": "Start date (if temporary)."
+          },
+          "duration_until": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time",
+            "description": "End date (if temporary)."
+          }
+        },
+        "required": [
+          "location_of",
+          "label",
+          "country",
+          "country_code"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "entity_linking": {
+      "type": "array",
+      "description": "Entity linking is used to link an entity mention to a specific named entity in the graph.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "content_key": {
+            "type": "string",
+            "description": "Type of content (e.g. 'body', 'subject', etc.)."
+          },
+          "label": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Label of the entity."
+          },
+          "starts_at": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "Start index of the entity in the content."
+          },
+          "ends_at": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "End index of the entity in the content."
+          },
+          "entity_type": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Entity type (e.g. Person, Organization)."
+          },
+          "entity_gid": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid",
+            "description": "Graph UUID of the entity."
+          },
+          "entity_wid": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Wikidata UUID of the entity."
+          },
+          "certainty": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Certainty of the entity linking."
+          }
+        },
+        "required": [
+          "content_key"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "contextual_awareness": {
+      "type": "array",
+      "description": "Tracks additional context for entities involved in the event.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Type of context (Description, Summary, Conditions, etc.)."
+          },
+          "entity_type": {
+            "type": "string",
+            "description": "Entity type that the event is associated with."
+          },
+          "entity_gid": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid",
+            "description": "Entity GID that the event is associated with."
+          },
+          "entity_wid": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Wikidata ID of the entity."
+          },
+          "context": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Context information."
+          }
+        },
+        "required": [
+          "type",
+          "entity_type"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "product": {
+      "type": "array",
+      "description": "Individual products in the order, cart, product list, wishlist, etc.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "position": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "Position in the product list."
+          },
+          "entry_type": {
+            "type": "string",
+            "description": "Type of product entry (Cart, Line Item, Wishlist, etc.)."
+          },
+          "line_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Unique ID for the line item."
+          },
+          "product_id": {
+            "type": "string",
+            "description": "Database id of the product."
+          },
+          "entity_gid": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Database id of the product (UUID)."
+          },
+          "sku": {
+            "type": "string",
+            "description": "SKU of the product."
+          },
+          "barcode": {
+            "type": "string",
+            "description": "Barcode of the product."
+          },
+          "gtin": {
+            "type": "string",
+            "description": "GTIN of the product."
+          },
+          "upc": {
+            "type": "string",
+            "description": "UPC of the product."
+          },
+          "ean": {
+            "type": "string",
+            "description": "EAN of the product."
+          },
+          "isbn": {
+            "type": "string",
+            "description": "ISBN of the product."
+          },
+          "serial_number": {
+            "type": "string",
+            "description": "Serial number."
+          },
+          "supplier_number": {
+            "type": "string",
+            "description": "Supplier number."
+          },
+          "tpx_serial_number": {
+            "type": "string",
+            "description": "Third-party serial number."
+          },
+          "bundle_id": {
+            "type": "string",
+            "description": "ID of the bundle the product belongs to."
+          },
+          "bundle": {
+            "type": "string",
+            "description": "Name of the bundle."
+          },
+          "product": {
+            "type": "string",
+            "description": "Name of the product being viewed."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Variant of the product."
+          },
+          "novelty": {
+            "type": "string",
+            "description": "Novelty of the product."
+          },
+          "size": {
+            "type": "string",
+            "description": "Size of the product."
+          },
+          "packaging": {
+            "type": "string",
+            "description": "Packaging of the product."
+          },
+          "condition": {
+            "type": "string",
+            "description": "Condition (fresh, frozen, etc.)."
+          },
+          "ready_for_use": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "If the product is ready for use."
+          },
+          "core_product": {
+            "type": "string",
+            "description": "The core product (unbranded, etc.)."
+          },
+          "origin": {
+            "type": "string",
+            "description": "Origin location identifier."
+          },
+          "brand": {
+            "type": "string",
+            "description": "Brand associated with the product."
+          },
+          "product_line": {
+            "type": "string",
+            "description": "Product line."
+          },
+          "own_product": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "If item is a store brand."
+          },
+          "product_dist": {
+            "type": "string",
+            "description": "Product distribution class (A-J)."
+          },
+          "main_category": {
+            "type": "string",
+            "description": "Main product category."
+          },
+          "main_category_id": {
+            "type": "string",
+            "description": "Main product category ID."
+          },
+          "category": {
+            "type": "string",
+            "description": "Sub-category."
+          },
+          "category_id": {
+            "type": "string",
+            "description": "Sub-category ID."
+          },
+          "gs1_brick_id": {
+            "type": "string",
+            "description": "GS1 Brick ID."
+          },
+          "gs1_brick": {
+            "type": "string",
+            "description": "GS1 Brick Name."
+          },
+          "gs1_brick_short": {
+            "type": "string",
+            "description": "GS1 Brick Short Name."
+          },
+          "gs1_brick_variant": {
+            "type": "string",
+            "description": "GS1 Brick Variant."
+          },
+          "gs1_conditions": {
+            "type": "string",
+            "description": "GS1 Brick Conditions."
+          },
+          "gs1_processed": {
+            "type": "string",
+            "description": "GS1 Brick Processed."
+          },
+          "gs1_consumable": {
+            "type": "string",
+            "description": "GS1 Brick Consumable."
+          },
+          "gs1_class": {
+            "type": "string",
+            "description": "GS1 Class."
+          },
+          "gs1_family": {
+            "type": "string",
+            "description": "GS1 Family."
+          },
+          "gs1_segment": {
+            "type": "string",
+            "description": "GS1 Segment."
+          },
+          "starts": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time",
+            "description": "Start date for product."
+          },
+          "ends": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time",
+            "description": "End date for product."
+          },
+          "duration": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Duration in minutes."
+          },
+          "seats": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Seat assignments."
+          },
+          "destination": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Destination location identifier."
+          },
+          "lead_time": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Lead time in days to delivery."
+          },
+          "dwell_time_ms": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "Time in ms that product was in viewport (above the fold)."
+          },
+          "supplier": {
+            "type": "string",
+            "description": "Supplier."
+          },
+          "supplier_id": {
+            "type": "string",
+            "description": "Supplier ID."
+          },
+          "manufacturer": {
+            "type": "string",
+            "description": "Manufacturer."
+          },
+          "manufacturer_id": {
+            "type": "string",
+            "description": "Manufacturer ID."
+          },
+          "promoter": {
+            "type": "string",
+            "description": "Promoter."
+          },
+          "promoter_id": {
+            "type": "string",
+            "description": "Promoter ID."
+          },
+          "product_mgr_id": {
+            "type": "string",
+            "description": "Product Manager ID."
+          },
+          "product_mgr": {
+            "type": "string",
+            "description": "Product Manager."
+          },
+          "units": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Product units (1 if sold by weight)."
+          },
+          "unit_price": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Unit price."
+          },
+          "unit_cost": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Unit cost."
+          },
+          "bundled_units": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "Number of units in a bundle."
+          },
+          "unit_size": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Quantity of each unit."
+          },
+          "uom": {
+            "type": "string",
+            "description": "Unit of measure."
+          },
+          "tax_percentage": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Tax percentage."
+          },
+          "discount_percentage": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Discount percentage."
+          },
+          "kickback_percentage": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Kickback percentage."
+          },
+          "commission": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Total commission percentage."
+          },
+          "scale_item": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "If quantity was measured at checkout."
+          },
+          "price_changed": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "If the price changed at register/terminal."
+          },
+          "line_discounted": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "If the line item has a discount."
+          },
+          "price_bracket": {
+            "type": "string",
+            "description": "Price bracket."
+          },
+          "income_category": {
+            "type": "string",
+            "description": "Income category."
+          },
+          "coupon": {
+            "type": "string",
+            "description": "Coupon code."
+          },
+          "url": {
+            "type": "string",
+            "description": "URL of the product page."
+          },
+          "img_url": {
+            "type": "string",
+            "description": "Image URL of the product."
+          }
+        },
+        "required": [
+          "entry_type",
+          "product_id",
+          "entity_gid",
+          "sku",
+          "product"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "analysis": {
+      "type": "array",
+      "description": "Tracks the cost associated with analysis of the event (internal use only).",
+      "items": {
+        "type": "object",
+        "properties": {
+          "item": {
+            "type": "string",
+            "description": "The item involved in the event."
+          },
+          "provider": {
+            "type": "string",
+            "description": "The provider of the item."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Variant of the item."
+          },
+          "processing_time": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Processing time."
+          },
+          "token_in": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "Token in."
+          },
+          "token_out": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "Token out."
+          },
+          "currency": {
+            "type": "string",
+            "description": "Currency."
+          },
+          "amount": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Amount/price."
+          }
+        },
+        "required": [
+          "item",
+          "provider",
+          "variant",
+          "currency"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "access": {
+      "type": "array",
+      "description": "Black or whitelist of users that have access to the event.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Access type (Blacklisted, Whitelisted)."
+          },
+          "label": {
+            "type": "string",
+            "description": "User ID."
+          },
+          "user_gid": {
+            "type": "string",
+            "format": "uuid",
+            "description": "User GID."
+          },
+          "organization_gid": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid",
+            "description": "Department/organization GID."
+          },
+          "date_from": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time",
+            "description": "Access start date."
+          },
+          "date_to": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time",
+            "description": "Access end date."
+          }
+        },
+        "required": [
+          "type",
+          "label",
+          "user_gid"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "properties": {
+    "entity_gid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The entity that the event is associated with (Context Suite Specific, Account or any sub-entity)."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The timestamp of the event (UTC, precise to sub-second)."
+    },
+    "type": {
+      "type": "string",
+      "description": "The event type (e.g. 'track', 'page', 'identify', 'group', 'alias', 'screen')."
+    },
+    "event": {
+      "type": "string",
+      "description": "The event name (e.g. 'Product Added'); always capitalized, past tense verb."
+    },
+    "anonymous_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The anonymous ID of the user before identification."
+    },
+    "anonymous_gid": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uuid",
+      "description": "Obfuscated anonymous GID of the user before identification."
+    },
+    "user_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The user ID of the user."
+    },
+    "user_gid": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uuid",
+      "description": "Obfuscated user GID."
+    },
+    "account_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The account ID of the user, often the same as entity_gid."
+    },
+    "previous_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The user ID before the event (e.g. anonymousId before identify)."
+    },
+    "session_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The session ID of the user (client-side)."
+    },
+    "session_gid": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uuid",
+      "description": "The session GID of the user session."
+    },
+    "context_ip": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The IPv4 address of the user."
+    },
+    "importance": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "The importance of the event (e.g. 1..5)."
+    },
+    "customer_facing": {
+      "type": "integer",
+      "description": "Flag for whether the event is customer-facing (0/1)."
+    },
+    "content": {
+      "type": "object",
+      "description": "A dictionary of additional content associated with the event (e.g. 'Body', 'Title', 'Summary').",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "involves": {
+      "$ref": "#/definitions/involves"
+    },
+    "sentiment": {
+      "$ref": "#/definitions/sentiment",
+      "description": "Tracks entity sentiment expressed in the event. This is normally done on the server side, but can be used to override the default sentiment analysis."
+    },
+    "classification": {
+      "$ref": "#/definitions/classification"
+    },
+    "location": {
+      "$ref": "#/definitions/location",
+      "description": "Location information associated with the event. This is normally enriched on the server side, but can be used to override the default location enrichment."
+    },
+    "entity_linking": {
+      "$ref": "#/definitions/entity_linking",
+      "description": "Entity linking is used to link an entity mention to a specific named entity in the graph. This is normally enriched on the server side, but can be used to override the default entity linking."
+    },
+    "contextual_awareness": {
+      "$ref": "#/definitions/contextual_awareness",
+      "description": "Tracks additional context for entities involved in the event. This is normally enriched on the server side, but can be used to override the default contextual awareness."
+    },
+    "properties": {
+      "type": "object",
+      "description": "A dictionary of additional properties for the event in any JSON format. Used for properties not mapped to dedicated columns.",
+      "patternProperties": {
+        "^[a-z_][a-z0-9_]*$": {
+          "type": [
+            "string",
+            "number",
+            "boolean",
+            "object"
+          ],
+          "description": "Additional property for the event."
+        }
+      }
+    },
+    "dimensions": {
+      "type": "object",
+      "description": "Additional low-cardinality dimensions for the event, not defined in the schema, used on dashboards.",
+      "patternProperties": {
+        "^[a-z_][a-z0-9_]*$": {
+          "type": [
+            "string"
+          ],
+          "description": "Additional dimension for the event."
+        }
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "description": "Additional metrics for the event, used on dashboards.",
+      "patternProperties": {
+        "^[a-z_][a-z0-9_]*$": {
+          "type": [
+            "number"
+          ],
+          "description": "Additional metric for the event."
+        }
+      }
+    },
+    "flags": {
+      "type": "object",
+      "description": "Boolean flags for the event, used on dashboards.",
+      "patternProperties": {
+        "^[a-z_][a-z0-9_]*$": {
+          "type": [
+            "boolean"
+          ],
+          "description": "Additional flag for the event."
+        }
+      }
+    },
+    "campaign": {
+      "$ref": "#/definitions/campaign",
+      "description": "Campaign information associated with the event. This is normally enriched on the server side from information in the URL, but can be used to override the default campaign enrichment."
+    },
+    "app": {
+      "$ref": "#/definitions/app",
+      "description": "Application information associated with the event. This is normally enriched by the client before sending the event, but can be used to override the default app information."
+    },
+    "device": {
+      "$ref": "#/definitions/device",
+      "description": "Device information associated with the event. This is normally enriched by the client before sending the event, but can be used to override the default device information."
+    },
+    "os": {
+      "$ref": "#/definitions/os",
+      "description": "Operating system information associated with the event. This is normally enriched by the client before sending the event, but can be used to override the default OS information."
+    },
+    "library": {
+      "$ref": "#/definitions/library",
+      "description": "Library information associated with the event. This is normally enriched by the client before sending the event, but can be used to override the default library information."
+    },
+    "user_agent": {
+      "$ref": "#/definitions/user_agent",
+      "description": "User agent information associated with the event. This is normally enriched by the server side using the user agent string, but can be used to override the default user agent information."
+    },
+    "network": {
+      "$ref": "#/definitions/network",
+      "description": "Network information associated with the event. This is normally enriched by the client before sending the event, but can be used to override the default network information."
+    },
+    "traits": {
+      "$ref": "#/definitions/traits",
+      "description": "User traits associated with the event. This is the root node when .identify() is called, and is used to store user profile information. It can also be used to override the default traits."
+    },
+    "page": {
+      "$ref": "#/definitions/page",
+      "description": "Page information associated with the event. This is normally enriched by the client when calling .page(), but can be used to override the default page information."
+    },
+    "referrer": {
+      "$ref": "#/definitions/referrer",
+      "description": "Referrer information associated with the event. This is normally enriched by the client when calling .page(), but can be used to override the default referrer information."
+    },
+    "screen": {
+      "$ref": "#/definitions/screen",
+      "description": "Screen information associated with the event. This is normally enriched by the client when calling .screen(), but can be used to override the default screen information."
+    },
+    "context": {
+      "$ref": "#/definitions/context",
+      "description": "Context information associated with the event. This is normally enriched by the client and the server side, but can be used to override the default context information."
+    },
+    "commerce": {
+      "$ref": "#/definitions/commerce",
+      "description": "Context Suite extension of commerce events. This is normally included when calling .track() for commerce events"
+    },
+    "commerce_products": {
+      "$ref": "#/definitions/product",
+      "description": "Individual products in the order, cart, product list, wishlist, etc. This is normally included when calling .track() for commerce events."
+    },
+    "analysis": {
+      "$ref": "#/definitions/analysis",
+      "description": "Cost associated with analysis of the event. This is done on the server side, but can be used to override the default analysis."
+    },
+    "base_events": {
+      "type": "string"
+    },
+    "access": {
+      "$ref": "#/definitions/access",
+      "description": "Black or whitelist of users that have access to the event. This is normally included when calling .track() for events that require access control."
+    },
+    "source": {
+      "type": "object",
+      "description": "Source and access information.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "CRM",
+            "ERP",
+            "eCommerce",
+            "Web",
+            "Mobile",
+            "Other"
+          ],
+          "description": "Type of source (e.g. CRM, ERP, eCommerce, Web, Mobile, Other)."
+        },
+        "label": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Label of the source of the event."
+        },
+        "source_gid": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid",
+          "description": "Graph UUID of the source."
+        },
+        "access_gid": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid",
+          "description": "Graph UUID of the authentication details."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "label"
+      ]
+    },
+    "event_gid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "A unique GID for each message. Calculated by the server side, used for deduplication and tracking."
+    },
+    "analyse": {
+      "type": "object",
+      "description": "Custom analysis flags that override the default analysis for this event.",
+      "patternProperties": {
+        "^[a-z_][a-z0-9_]*$": {
+          "type": "boolean",
+          "description": "Custom analysis flag for the event."
+        }
+      }
+    },
+    "integrations": {
+      "type": "object",
+      "description": "Customer integrations flags that override default integrations run for the event.",
+      "additionalProperties": {
+        "type": "boolean"
+      }
+    },
+    "ttl_days": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Number of days the event is stored (defaults to forever)."
+    }
+  },
+  "required": [
+    "timestamp",
+    "type"
+  ]
+}
